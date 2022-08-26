@@ -19,11 +19,18 @@ public class     Crossout : MonoBehaviour
             Cursor.visible = false;
         }
     }
-
     private void Update()
     {
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y,1);
-        Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePos); ;
+        if (Input.touchCount > 0 && _GameManager.GameOver == false)
+        {
+            Touch myTouch = Input.GetTouch(0);
+            if (myTouch.phase == TouchPhase.Began)
+            {
+              objPos  = myTouch.position;
+            }
+        }
         if (_GameManager.GameOver == false)
         {
             transform.position = objPos;
@@ -37,11 +44,4 @@ public class     Crossout : MonoBehaviour
             Cursor.visible = true;
         }
     }
-
-  
-
-    // Update is called once per frame
-
 }
-
-
